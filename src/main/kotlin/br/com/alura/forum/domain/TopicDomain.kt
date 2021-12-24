@@ -3,7 +3,7 @@ package br.com.alura.forum.domain
 import java.time.LocalDateTime
 
 data class TopicDomain(
-        val id: Long? = null,
+        var id: Long? = null,
         val title: String,
         val message: String,
         val createdAt: LocalDateTime = LocalDateTime.now(),

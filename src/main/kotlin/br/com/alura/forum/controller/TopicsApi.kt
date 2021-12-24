@@ -1,18 +1,20 @@
 package br.com.alura.forum.controller
 
 import br.com.alura.forum.domain.TopicDomain
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import br.com.alura.forum.domain.dto.CreateTopicRequest
+import br.com.alura.forum.domain.dto.TopicResponse
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/topics")
 interface TopicsApi {
 
     @GetMapping
-    fun list(): List<TopicDomain>
+    fun list(): List<TopicResponse>
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Long): TopicDomain
+    fun findById(@PathVariable id: Long): TopicResponse
+
+    @PostMapping()
+    fun create(@RequestBody createTopicRequest: CreateTopicRequest)
 }
