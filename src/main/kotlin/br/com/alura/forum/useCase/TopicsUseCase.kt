@@ -4,6 +4,7 @@ import br.com.alura.forum.domain.TopicDomain
 import br.com.alura.forum.domain.dto.CreateTopicRequest
 import br.com.alura.forum.domain.dto.TopicResponse
 import br.com.alura.forum.domain.dto.UpdateTopicRequest
+import br.com.alura.forum.exception.NotFoundException
 import br.com.alura.forum.mapper.TopicRequestMapper
 import br.com.alura.forum.mapper.TopicResponseMapper
 import org.springframework.stereotype.Component
@@ -25,7 +26,7 @@ class TopicsUseCase(
     fun findById(id: Long): TopicResponse {
         val topico = topics.stream().filter { t ->
             t.id == id
-        }.findFirst().get()
+        }.findFirst().orElseThrow{NotFoundException("ID not found")}
         return topicoViewMapper.map(topico)
     }
 
@@ -39,7 +40,7 @@ class TopicsUseCase(
     fun update(id: Long, updateTopicRequest: UpdateTopicRequest): TopicResponse {
         val topico = topics.stream().filter { t ->
             t.id == id
-        }.findFirst().get()
+        }.findFirst().orElseThrow{NotFoundException("ID not found")}
 
         topico.title = updateTopicRequest.title
         topico.message = updateTopicRequest.message
@@ -50,7 +51,7 @@ class TopicsUseCase(
     fun delete(id: Long) {
         val topico = topics.stream().filter { t ->
             t.id == id
-        }.findFirst().get()
+        }.findFirst().orElseThrow{NotFoundException("ID not found")}
 
         topics = topics.minus(topico)
     }
