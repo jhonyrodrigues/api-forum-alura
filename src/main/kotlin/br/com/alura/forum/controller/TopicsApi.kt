@@ -20,7 +20,7 @@ interface TopicsApi {
     fun findById(@PathVariable id: Long): TopicResponse
 
     @PostMapping()
-    fun create(@RequestBody createTopicRequest: CreateTopicRequest, uri: UriComponentsBuilder): ResponseEntity<TopicResponse>
+    fun create(@RequestBody @Valid createTopicRequest: CreateTopicRequest, uri: UriComponentsBuilder): ResponseEntity<TopicResponse>
 
     @PutMapping("{id}")
     fun update(@PathVariable id: Long, @RequestBody @Valid updateTopicRequest: UpdateTopicRequest): ResponseEntity<TopicResponse>

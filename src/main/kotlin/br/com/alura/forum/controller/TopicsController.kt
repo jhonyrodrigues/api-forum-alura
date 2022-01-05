@@ -36,14 +36,14 @@ class TopicsController(private val topicsUseCase: TopicsUseCase) : TopicsApi {
         return ResponseEntity.created(uri).body(response)
     }
 
-    override fun update(@PathVariable id: Long, @RequestBody @Valid updateTopicRequest: UpdateTopicRequest): ResponseEntity<TopicResponse> {
+    override fun update(id: Long, updateTopicRequest: UpdateTopicRequest): ResponseEntity<TopicResponse> {
 
         val response = topicsUseCase.update(id, updateTopicRequest)
 
         return ResponseEntity.ok(response)
     }
 
-    override fun delete(@PathVariable id: Long) {
+    override fun delete(id: Long) {
 
         topicsUseCase.delete(id)
     }
