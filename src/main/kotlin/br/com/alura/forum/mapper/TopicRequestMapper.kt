@@ -16,7 +16,6 @@ class TopicRequestMapper(
                 title = t.title,
                 message = t.message,
                 course = courseUseCase.findById(t.courseId),
-                author = authorUseCase.buscarPorId(t.authorId)
-        )
+                author = authorUseCase.findById(t.authorId))
     }
 }

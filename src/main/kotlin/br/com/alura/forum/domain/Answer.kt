@@ -7,6 +7,6 @@ data class Answer(
         val message: String,
         val createdAt: LocalDateTime = LocalDateTime.now(),
         val author: Author,
-        val topic: StatusTopic,
-        val solution: Boolean
+        val statusTopic: StatusTopic,
+        val solution: Boolean,
 )

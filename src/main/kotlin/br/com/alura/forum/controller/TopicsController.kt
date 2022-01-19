@@ -5,11 +5,8 @@ import br.com.alura.forum.domain.dto.TopicResponse
 import br.com.alura.forum.domain.dto.UpdateTopicRequest
 import br.com.alura.forum.useCase.TopicsUseCase
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
-import javax.validation.Valid
 
 @RestController
 class TopicsController(private val topicsUseCase: TopicsUseCase) : TopicsApi {

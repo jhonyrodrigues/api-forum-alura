@@ -1,0 +1,26 @@
+version: '3'
+
+networks:
+  database_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.1.0/24
+
+services:
+  postgres:
+    image: 'postgres:alpine'
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - database_network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: forumdb
+      POSTGRES_HOST: postgres
+
+volumes:
+  postgres-volume:

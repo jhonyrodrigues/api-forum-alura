@@ -1,4 +1,4 @@
-package br.com.alura.forum.exception
+package br.com.alura.forum.gateway.exception
 
 import br.com.alura.forum.domain.dto.ErrorResponse
 import org.springframework.http.HttpStatus
