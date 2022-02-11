@@ -6,7 +6,7 @@ import br.com.alura.forum.domain.dto.UpdateTopicRequest
 import br.com.alura.forum.useCase.TopicsUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.util.UriComponentsBuilder
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 
 @RestController
 class TopicsController(private val topicsUseCase: TopicsUseCase) : TopicsApi {
@@ -23,12 +23,11 @@ class TopicsController(private val topicsUseCase: TopicsUseCase) : TopicsApi {
 
     override fun create(
             createTopicRequest: CreateTopicRequest,
-            uriComponentsBuilder: UriComponentsBuilder,
     ): ResponseEntity<TopicResponse> {
 
         val response = topicsUseCase.create(createTopicRequest)
 
-        val uri = uriComponentsBuilder.path("/topics/${response.id}").build().toUri()
+        val uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/topics/${response.id}").build().toUri()
 
         return ResponseEntity.created(uri).body(response)
     }
