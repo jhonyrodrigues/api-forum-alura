@@ -1,14 +1,14 @@
 spring:
-  jpa:
-    database: POSTGRESQL
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
   datasource:
-    platform: postgres
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/forumdb
-    username: postgres
-    password: postgres
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:forum
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 
 server.servlet.context-path: /api-forum-alura
