@@ -4,6 +4,8 @@ import br.com.alura.forum.domain.dto.CreateTopicRequest
 import br.com.alura.forum.domain.dto.TopicResponse
 import br.com.alura.forum.domain.dto.UpdateTopicRequest
 import br.com.alura.forum.useCase.TopicsUseCase
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
@@ -11,9 +13,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 @RestController
 class TopicsController(private val topicsUseCase: TopicsUseCase) : TopicsApi {
 
-    override fun list(): List<TopicResponse> {
+    override fun list(nameCourse: String?,
+    pageable: Pageable): Page<TopicResponse> {
 
-        return topicsUseCase.list()
+        return topicsUseCase.list(nameCourse, pageable)
     }
 
     override fun findById(id: Long): TopicResponse {

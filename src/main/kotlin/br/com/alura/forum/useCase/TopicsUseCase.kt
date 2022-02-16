@@ -7,7 +7,11 @@ import br.com.alura.forum.gateway.TopicGateway
 import br.com.alura.forum.gateway.exception.NotFoundException
 import br.com.alura.forum.mapper.TopicRequestMapper
 import br.com.alura.forum.mapper.TopicResponseMapper
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
+
+private const val ID_NOT_FOUND = "Id not found"
 
 @Component
 class TopicsUseCase(
@@ -16,11 +20,20 @@ class TopicsUseCase(
         private val topicResponseMapper: TopicResponseMapper,
 ) {
 
-    fun list(): List<TopicResponse> {
-        return topicGateway.findAll().map { t ->
+    fun list(
+            nameCourse: String?,
+            pageable: Pageable,
+    ): Page<TopicResponse> {
+        val topics = if (nameCourse == null) {
+            topicGateway.findAll(pageable)
+        } else {
+            topicGateway.findByNameCourse(nameCourse, pageable)
+        }
+        return topics.map { t ->
             topicResponseMapper.map(t)
         }
     }
+
 
     fun findById(id: Long): TopicResponse {
         try {
@@ -29,7 +42,7 @@ class TopicsUseCase(
             return topicResponseMapper.map(topic)
 
         } catch (e: Exception) {
-            throw NotFoundException("Id not found")
+            throw NotFoundException(ID_NOT_FOUND)
         }
     }
 
@@ -49,7 +62,7 @@ class TopicsUseCase(
             return topicResponseMapper.map(topic)
 
         } catch (e: Exception) {
-            throw NotFoundException("Id not found")
+            throw NotFoundException(ID_NOT_FOUND)
         }
     }
 
@@ -60,7 +73,7 @@ class TopicsUseCase(
             topicGateway.delete(topic.id!!)
 
         } catch (e: Exception) {
-            throw NotFoundException("Id not found")
+            throw NotFoundException(ID_NOT_FOUND)
         }
     }
 }

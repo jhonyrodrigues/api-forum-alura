@@ -6,6 +6,8 @@ import br.com.alura.forum.gateway.TopicGateway
 import br.com.alura.forum.gateway.database.repository.TopicsRepository
 import br.com.alura.forum.gateway.database.translate.translateTopicDatabaseToTopicDomain
 import br.com.alura.forum.gateway.database.translate.translateTopicDomainToTopicDatabase
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
 
 @Component
@@ -35,13 +37,19 @@ class TopicGatewayImpl(
         return translateTopicDatabaseToTopicDomain(topicDatabase.get())
     }
 
-    override fun findAll(): List<TopicDomain> {
-        return repository.findAll().map { topic ->
+    override fun findAll(pageable: Pageable): Page<TopicDomain> {
+        return repository.findAll(pageable).map { topic ->
             translateTopicDatabaseToTopicDomain(topic)
         }
     }
 
     override fun delete(id: Long) {
         repository.deleteById(id)
+    }
+
+    override fun findByNameCourse(nameCourse: String, pageable: Pageable): Page<TopicDomain> {
+        return repository.findByCourseName(nameCourse, pageable).map { topic ->
+            translateTopicDatabaseToTopicDomain(topic)
+        }
     }
 }
