@@ -1,6 +1,7 @@
 package br.com.alura.forum.useCase
 
 import br.com.alura.forum.domain.dto.CreateTopicRequest
+import br.com.alura.forum.domain.dto.TopicPerCategoryDto
 import br.com.alura.forum.domain.dto.TopicResponse
 import br.com.alura.forum.domain.dto.UpdateTopicRequest
 import br.com.alura.forum.gateway.TopicGateway
@@ -75,5 +76,9 @@ class TopicsUseCase(
         } catch (e: Exception) {
             throw NotFoundException(ID_NOT_FOUND)
         }
+    }
+
+    fun report(): List<TopicPerCategoryDto> {
+        return topicGateway.report()
     }
 }

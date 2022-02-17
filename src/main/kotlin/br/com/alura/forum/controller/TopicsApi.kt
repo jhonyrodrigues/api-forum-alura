@@ -1,6 +1,7 @@
 package br.com.alura.forum.controller
 
 import br.com.alura.forum.domain.dto.CreateTopicRequest
+import br.com.alura.forum.domain.dto.TopicPerCategoryDto
 import br.com.alura.forum.domain.dto.TopicResponse
 import br.com.alura.forum.domain.dto.UpdateTopicRequest
 import org.springframework.cache.annotation.CacheEvict
@@ -44,4 +45,7 @@ interface TopicsApi {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CacheEvict(value = ["topics"], allEntries = true)
     fun delete(@PathVariable id: Long)
+
+    @GetMapping("/report")
+    fun relatorio(): List<TopicPerCategoryDto>
 }

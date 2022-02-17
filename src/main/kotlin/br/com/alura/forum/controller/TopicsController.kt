@@ -1,6 +1,7 @@
 package br.com.alura.forum.controller
 
 import br.com.alura.forum.domain.dto.CreateTopicRequest
+import br.com.alura.forum.domain.dto.TopicPerCategoryDto
 import br.com.alura.forum.domain.dto.TopicResponse
 import br.com.alura.forum.domain.dto.UpdateTopicRequest
 import br.com.alura.forum.useCase.TopicsUseCase
@@ -45,5 +46,9 @@ class TopicsController(private val topicsUseCase: TopicsUseCase) : TopicsApi {
     override fun delete(id: Long) {
 
         topicsUseCase.delete(id)
+    }
+
+    override fun relatorio(): List<TopicPerCategoryDto> {
+       return topicsUseCase.report()
     }
 }

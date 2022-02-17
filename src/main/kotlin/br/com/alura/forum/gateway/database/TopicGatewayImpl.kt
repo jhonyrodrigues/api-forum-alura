@@ -1,6 +1,7 @@
 package br.com.alura.forum.gateway.database
 
 import br.com.alura.forum.domain.TopicDomain
+import br.com.alura.forum.domain.dto.TopicPerCategoryDto
 import br.com.alura.forum.domain.dto.UpdateTopicRequest
 import br.com.alura.forum.gateway.TopicGateway
 import br.com.alura.forum.gateway.database.repository.TopicsRepository
@@ -51,5 +52,9 @@ class TopicGatewayImpl(
         return repository.findByCourseName(nameCourse, pageable).map { topic ->
             translateTopicDatabaseToTopicDomain(topic)
         }
+    }
+
+    override fun report(): List<TopicPerCategoryDto> {
+        return repository.report()
     }
 }
